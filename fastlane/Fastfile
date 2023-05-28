@@ -21,7 +21,7 @@ platform :ios do
   end
   
   desc "Run all the tests"
-  lane: test do 
+  lane :test do 
     scan
   end
 end
