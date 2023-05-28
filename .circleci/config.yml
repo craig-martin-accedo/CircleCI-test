@@ -4,14 +4,22 @@ jobs: # a basic unit of work in a run
   build: # runs not using `Workflows` must have a `build` job as entry point
     macos: # indicate that we are using the macOS executor
       xcode: 14.3.0
-    
-    steps: # a series of commands to run
-      - checkout # pull down code from your version control system.
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: test
+    steps:
+      - checkout
+      - run: bundle install
       - run:
-        # run our tests using xcode's cli tool `xcodebuild` name: Run Unit Tests
-          name: Run Unit Tests
-          command: xcodebuild test -workspace Nasa.xcworkspace -scheme Nasa -destination 'platform=iOS Simulator,id=dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder,name=iPhone 14,OS=16.4' test
-      - run:
-        # build our application  
-          name: Build Application
-          command: xcodebuild -workspace Nasa.xcworkspace -scheme Nasa
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+      - store_artifacts:
+          path: output
+      - store_test_results:
+          path: output/scan
+
+workflows:
+  build-and-test:
+    jobs:
+      - build
+
