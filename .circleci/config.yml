@@ -3,7 +3,7 @@ version: 2.1
 jobs: # a basic unit of work in a run
   build: # runs not using `Workflows` must have a `build` job as entry point
     macos: # indicate that we are using the macOS executor
-      xcode: 14.3.0
+      xcode: 14.3.1
     
     steps: # a series of commands to run
       - checkout # pull down code from your version control system.
