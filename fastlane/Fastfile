@@ -22,6 +22,8 @@ platform :ios do
   
   desc "Run all the tests"
   lane :test do 
-    scan
+    scan(
+      include_simulator_logs: false
+    )
   end
 end
