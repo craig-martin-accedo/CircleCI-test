@@ -21,5 +21,8 @@ jobs: # a basic unit of work in a run
 workflows:
   build-and-test:
     jobs:
-      - build
-
+      - build:
+          filters:
+            branches:
+              only:
+                - main
